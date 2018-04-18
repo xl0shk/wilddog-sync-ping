@@ -1,0 +1,300 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <meta name="theme-color" content="#222"/>
+    <title>Wilddog-Sync-Ping</title>
+    <link rel="stylesheet" href="./css/style.css" type="text/css"/>
+    <link href="/images/favicon.ico" rel="icon" type="image/png">
+    <script src="https://cdn.wilddog.com/sdk/js/2.1.0/wilddog.js"></script>
+</head>
+
+<body>
+
+<h1>网络监测</h1>
+<div class="agent">
+    <span class="agent_name" height="16" align="top" />联通</span>
+    <div class="targets">
+        <div class="target" id="Unicom-SH">
+            <div class="isp_name">上海联通</div>
+            <div class="isp_value"><span id="Unicom-SH-value">10ms</span>
+            </div>
+        </div>
+        <div class="target" id="Unicom-GZ">
+            <div class="isp_name">广州联通</div>
+            <div class="isp_value"><span id="Unicom-GZ-value">10ms</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="agent">
+    <span class="agent_name" height="16" align="top" />电信</span>
+    <div class="targets">
+        <div class="target" id="Telecom-BJ">
+            <div class="isp_name">北京电信</div>
+            <div class="isp_value"><span id="Telecom-BJ-value">10ms</span>
+            </div>
+        </div>
+        <div class="target" id="Telecom-SH">
+            <div class="isp_name">上海电信</div>
+            <div class="isp_value"><span id="Telecom-SH-value">10ms</span>
+            </div>
+        </div>
+        <div class="target" id="Telecom-GZ">
+            <div class="isp_name">广州电信</div>
+            <div class="isp_value"><span id="Telecom-GZ-value">10ms</span>
+            </div>
+        </div>
+        <div class="target" id="Telecom-HZ">
+            <div class="isp_name">杭州电信</div>
+            <div class="isp_value"><span id="Telecom-HZ-value">10ms</span>
+            </div>
+        </div>
+        <div class="target" id="Telecom-ZZ">
+            <div class="isp_name">郑州电信</div>
+            <div class="isp_value"><span id="Telecom-ZZ-value">10ms</span>
+            </div>
+        </div>
+        <div class="target" id="Telecom-NJ">
+            <div class="isp_name">南京电信</div>
+            <div class="isp_value"><span id="Telecom-NJ-value">10ms</span>
+            </div>
+        </div>
+        <div class="target" id="Telecom-CD">
+            <div class="isp_name">成都电信</div>
+            <div class="isp_value"><span id="Telecom-CD-value">10ms</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="agent">
+    <span class="agent_name" height="16" align="top" />移动</span>
+    <div class="targets">
+        <div class="target" id="Mobile-BJ">
+            <div class="isp_name">北京移动</div>
+            <div class="isp_value"><span id="Mobile-BJ-value">10ms</span>
+            </div>
+        </div>
+        <div class="target" id="Mobile-SH">
+            <div class="isp_name">上海移动</div>
+            <div class="isp_value"><span id="Mobile-SH-value">10ms</span>
+            </div>
+        </div>
+        <div class="target" id="Mobile-GZ">
+            <div class="isp_name">广州移动</div>
+            <div class="isp_value"><span id="Mobile-GZ-value">10ms</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="agent">
+    <span class="agent_name" height="16" align="top" />其他运营商</span>
+    <div class="targets">
+        <div class="target" id="Changkuan-SZ">
+            <div class="isp_name">深圳长城宽带</div>
+            <div class="isp_value"><span id="Changkuan-SZ-value">10ms</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./js/jquery-2.2.3.min.js"></script>
+<script src="./js/jquery.animateNumber.min.js"></script>
+<script src="./js/moment.min.js"></script>
+
+<script>
+    var config = {
+        syncURL: "https://test3421.wilddogio.com"
+    };
+    wilddog.initializeApp(config);
+    var ref = wilddog.sync().ref();
+
+    ref.child("Unicom/Unicom-SH").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Unicom-SH-value').text(snapshot.val().join(''));
+        else
+            $('#Unicom-SH-value').text(snapshot.val());
+        $("#Unicom-SH").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Unicom/Unicom-GZ").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Unicom-GZ-value').text(snapshot.val().join(''));
+        else
+            $('#Unicom-GZ-value').text(snapshot.val());
+        $("#Unicom-GZ").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Telecom/Telecom-BJ").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Telecom-BJ-value').text(snapshot.val().join(''));
+        else
+            $('#Telecom-BJ-value').text(snapshot.val());
+        $("#Telecom-BJ").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Telecom/Telecom-CD").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Telecom-CD-value').text(snapshot.val().join(''));
+        else
+            $('#Telecom-CD-value').text(snapshot.val());
+        $("#Telecom-CD").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Telecom/Telecom-SH").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Telecom-SH-value').text(snapshot.val().join(''));
+        else
+            $('#Telecom-SH-value').text(snapshot.val());
+        $("#Telecom-SH").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Telecom/Telecom-GZ").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Telecom-GZ-value').text(snapshot.val().join(''));
+        else
+            $('#Telecom-GZ-value').text(snapshot.val());
+        $("#Telecom-GZ").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Telecom/Telecom-ZZ").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Telecom-ZZ-value').text(snapshot.val().join(''));
+        else
+            $('#Telecom-ZZ-value').text(snapshot.val());
+        $("#Telecom-ZZ").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Telecom/Telecom-HZ").on("value", function (snapshot) {
+        console.log(snapshot.val());
+        if (typeof snapshot.val() === 'object')
+            $('#Telecom-HZ-value').text(snapshot.val().join(''));
+        else
+            $('#Telecom-HZ-value').text(snapshot.val());
+        $("#Telecom-HZ").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Telecom/Telecom-NJ").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Telecom-NJ-value').text(snapshot.val().join(''));
+        else
+            $('#Telecom-NJ-value').text(snapshot.val());
+        $("#Telecom-NJ").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Mobile/Mobile-BJ").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Mobile-BJ-value').text(snapshot.val().join(''));
+        else
+            $('#Mobile-BJ-value').text(snapshot.val());
+        $("#Mobile-BJ").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Mobile/Mobile-SH").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Mobile-SH-value').text(snapshot.val().join(''));
+        else
+            $('#Mobile-SH-value').text(snapshot.val());
+        $("#Mobile-SH").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Mobile/Mobile-GZ").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Mobile-GZ-value').text(snapshot.val().join(''));
+        else
+            $('#Mobile-GZ-value').text(snapshot.val());
+        $("#Mobile-GZ").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+    ref.child("Other/Changkuan-SZ").on("value", function (snapshot) {
+        if (typeof snapshot.val() === 'object')
+            $('#Changkuan-SZ-value').text(snapshot.val().join(''));
+        else
+            $('#Changkuan-SZ-value').text(snapshot.val());
+        $("#Changkuan-SZ").clearQueue().queue(function (next) {
+            $(this).addClass("changed_good");
+            next();
+        }).delay(250).queue(function (next) {
+            $(this).removeClass("changed_good");
+            next();
+        });
+    });
+
+</script>
+</body>
+</html>
